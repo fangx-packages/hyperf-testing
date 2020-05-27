@@ -21,7 +21,7 @@ use Symfony\Component\Console\Input\InputOption;
 /**
  * @Command
  */
-class FxTestCommand extends GeneratorCommand
+class TestGenerateCommand extends GeneratorCommand
 {
     public function __construct()
     {

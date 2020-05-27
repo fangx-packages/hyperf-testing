@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Fangx\Testing;
 
-use Fangx\Testing\Command\FxTestCommand;
+use Fangx\Testing\Command\TestGenerateCommand;
 
 class ConfigProvider
 {
@@ -25,7 +25,7 @@ class ConfigProvider
             'listeners' => [
             ],
             'commands' => [
-                FxTestCommand::class,
+                TestGenerateCommand::class,
             ],
             'annotations' => [
                 'scan' => [
