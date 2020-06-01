@@ -27,7 +27,7 @@ trait DatabaseMigrations
             '--path' => $path,
         ]);
 
-        $this->beforeContainerDestroyed(function () {
+        $this->beforeContainerDestroyed(function () use ($path) {
             $this->command('migrate:rollback', [
                 '--path' => $path,
             ]);
