@@ -23,9 +23,15 @@ trait RefreshDatabase
 
     public function refreshDatabase()
     {
+        if (method_exists($this, 'getMigrationsPath')) {
+            $path = $this->getMigrationsPath();
+        } else {
+            $path = 'migrations/testing';
+        }
+
         if ($this->usingInMemoryDatabase()) {
             $this->command('migrate', [
-                '--path' => 'migrations/testing',
+                '--path' => $path,
             ]);
         } else {
             $this->refreshTestDatabase();
@@ -65,9 +71,15 @@ trait RefreshDatabase
 
     protected function refreshTestDatabase()
     {
+        if (method_exists($this, 'getMigrationsPath')) {
+            $path = $this->getMigrationsPath();
+        } else {
+            $path = 'migrations/testing';
+        }
+
         if (! RefreshDatabaseState::$migrated) {
             $this->command('migrate:fresh', [
-                '--path' => 'migrations/testing',
+                '--path' => $path,
             ]);
 
             RefreshDatabaseState::$migrated = true;

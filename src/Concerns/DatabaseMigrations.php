@@ -17,13 +17,19 @@ trait DatabaseMigrations
 {
     public function runDatabaseMigrations()
     {
+        if (method_exists($this, 'getMigrationsPath')) {
+            $path = $this->getMigrationsPath();
+        } else {
+            $path = 'migrations/testing';
+        }
+
         $this->command('migrate:fresh', [
-            '--path' => 'migrations/testing',
+            '--path' => $path,
         ]);
 
         $this->beforeContainerDestroyed(function () {
             $this->command('migrate:rollback', [
-                '--path' => 'migrations/testing',
+                '--path' => $path,
             ]);
         });
     }
