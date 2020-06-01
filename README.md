@@ -12,11 +12,12 @@ composer require fangx/testing --dev
 
 # 使用
 
-
 > - `Fangx\Testing\Concerns\CommandCaller`: 提供 `command()` 方法, 在程序中执行命令.
 > - `Fangx\Testing\Concerns\DatabaseMigrations`: 参照 laravel. 需要依赖 `CommandCaller` 执行迁移命令.
 > - `Fangx\Testing\Concerns\RefreshDatabase`: 参照 laravel. 需要依赖 `CommandCaller` 执行迁移命令.
 > - `Fangx\Testing\Concerns\DatabaseTransactions`: 参照 laravel. 
+
+**运行迁移时, 默认执行的是 `migrations/testing` 目录下的迁移文件.**
 
 ### 使用命令创建
 
