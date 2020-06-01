@@ -17,7 +17,7 @@ composer require fangx/testing --dev
 > - `Fangx\Testing\Concerns\RefreshDatabase`: 参照 laravel. 需要依赖 `CommandCaller` 执行迁移命令.
 > - `Fangx\Testing\Concerns\DatabaseTransactions`: 参照 laravel. 
 
-**运行迁移时, 默认执行的是 `migrations/testing` 目录下的迁移文件.**
+**运行迁移时, 默认执行的是 `migrations/testing` 目录下的迁移文件. 可以通过设置 `getMigrationsPath` 方法来自定义迁移文件的目录**
 
 ### 使用命令创建
 
