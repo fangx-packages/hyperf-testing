@@ -22,15 +22,11 @@ trait CommandCaller
 {
     protected function command($command, $parameters = [])
     {
-        $lastOutput = new NullOutput();
-
-        $parameters['command'] = $command;
-
         $app = ApplicationContext::getContainer()
             ->get(ApplicationInterface::class);
 
         $app->setAutoExit(false);
 
-        return $app->run(new ArrayInput($parameters), $lastOutput);
+        return $app->find($command)->run(make(ArrayInput::class, [$parameters]), make(NullOutput::class));
     }
 }
