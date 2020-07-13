@@ -25,6 +25,11 @@ abstract class TestCase extends BaseTestCase
     /**
      * @var Container
      */
+    private $__container;
+
+    /**
+     * @var Container
+     */
     protected $container;
 
     /**
@@ -44,9 +49,11 @@ abstract class TestCase extends BaseTestCase
 
     protected function setUp()
     {
-        if (! $this->container) {
-            $this->refreshContainer();
+        if (!$this->__container) {
+            $this->createContainer();
         }
+
+        $this->refreshContainer();
 
         $this->setUpTraits();
 
@@ -120,11 +127,11 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshContainer()
     {
-        $this->container = $this->createContainer();
+        $this->container = $this->__container;
     }
 
     protected function createContainer()
     {
-        return ApplicationContext::getContainer()->get(ApplicationInterface::class);
+        $this->__container = ApplicationContext::getContainer();
     }
 }
