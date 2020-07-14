@@ -72,6 +72,7 @@ abstract class TestCase extends BaseTestCase
             }
 
             $this->container = null;
+            ApplicationContext::setContainer($this->__container);
         }
 
         $this->setUpHasRun = false;
@@ -127,7 +128,8 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshContainer()
     {
-        $this->container = $this->__container;
+        $this->container = clone $this->__container;
+        ApplicationContext::setContainer($this->container);
     }
 
     protected function createContainer()
