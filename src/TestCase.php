@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Fangx\Testing;
 
 use Carbon\Carbon;
-use Hyperf\Contract\ApplicationInterface;
 use Hyperf\Di\Container;
 use Hyperf\Utils\ApplicationContext;
 use Mockery;
@@ -22,11 +21,6 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * @var Container
-     */
-    private $__container;
-
     /**
      * @var Container
      */
@@ -47,9 +41,14 @@ abstract class TestCase extends BaseTestCase
      */
     protected $setUpHasRun = false;
 
+    /**
+     * @var Container
+     */
+    private $__container;
+
     protected function setUp()
     {
-        if (!$this->__container) {
+        if (! $this->__container) {
             $this->createContainer();
         }
 
@@ -127,7 +126,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshContainer()
     {
-        $this->container = $this->__container;
+        $this->container = ApplicationContext::setContainer(clone $this->__container);
     }
 
     protected function createContainer()
