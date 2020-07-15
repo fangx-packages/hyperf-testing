@@ -42,18 +42,11 @@ abstract class TestCase extends BaseTestCase
      */
     protected $setUpHasRun = false;
 
-    /**
-     * @var Container
-     */
-    private $__container;
-
     protected function setUp()
     {
-        if (! $this->__container) {
+        if (!$this->container) {
             $this->createContainer();
         }
-
-        $this->refreshContainer();
 
         $this->setUpTraits();
 
@@ -71,8 +64,7 @@ abstract class TestCase extends BaseTestCase
                 call_user_func($callback);
             }
 
-            $this->refreshContainer();
-            $this->container = null;
+            $this->container = ApplicationContext::setContainer(null);
         }
 
         $this->setUpHasRun = false;
@@ -126,13 +118,14 @@ abstract class TestCase extends BaseTestCase
         return $uses;
     }
 
-    protected function refreshContainer()
-    {
-        $this->container = ApplicationContext::setContainer(deep_copy($this->__container));
-    }
-
     protected function createContainer()
     {
-        $this->__container = ApplicationContext::getContainer();
+        if (defined('BASE_PATH') && file_exists($filename = BASE_PATH . '/config/container.php')) {
+            $container = require $filename;
+        } else {
+            $container = ApplicationContext::getContainer();
+        }
+
+        $this->container = $container;
     }
 }
