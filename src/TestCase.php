@@ -18,7 +18,6 @@ use Hyperf\Di\Container;
 use Hyperf\Utils\ApplicationContext;
 use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use function DeepCopy\deep_copy;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -44,7 +43,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function setUp()
     {
-        if (!$this->container) {
+        if (! $this->container) {
             $this->createContainer();
         }
 
