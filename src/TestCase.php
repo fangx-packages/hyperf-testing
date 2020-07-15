@@ -15,6 +15,7 @@ namespace Fangx\Testing;
 
 use Carbon\Carbon;
 use Hyperf\Di\Container;
+use Hyperf\Di\Definition\DefinitionSourceFactory;
 use Hyperf\Utils\ApplicationContext;
 use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -44,7 +45,7 @@ abstract class TestCase extends BaseTestCase
     protected function setUp()
     {
         if (! $this->container) {
-            $this->createContainer();
+            $this->refreshContainer();
         }
 
         $this->setUpTraits();
@@ -63,7 +64,7 @@ abstract class TestCase extends BaseTestCase
                 call_user_func($callback);
             }
 
-            $this->container = ApplicationContext::setContainer(null);
+            $this->clearContainer();
         }
 
         $this->setUpHasRun = false;
@@ -117,14 +118,20 @@ abstract class TestCase extends BaseTestCase
         return $uses;
     }
 
+    protected function clearContainer()
+    {
+        $this->container = null;
+        ApplicationContext::setContainer(\Fangx\Testing\Container::mock());
+    }
+
+    protected function refreshContainer()
+    {
+        $this->container = $this->createContainer();
+    }
+
     protected function createContainer()
     {
-        if (defined('BASE_PATH') && file_exists($filename = BASE_PATH . '/config/container.php')) {
-            $container = require $filename;
-        } else {
-            $container = ApplicationContext::getContainer();
-        }
-
-        $this->container = $container;
+        $this->clearContainer();
+        return ApplicationContext::setContainer(new Container((new DefinitionSourceFactory(false))()));
     }
 }
