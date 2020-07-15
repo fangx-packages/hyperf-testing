@@ -19,8 +19,6 @@ use Hyperf\Utils\ApplicationContext;
 
 trait RefreshDatabase
 {
-    protected $connectionsToTransact = [];
-
     public function refreshDatabase()
     {
         if (method_exists($this, 'getMigrationsPath')) {
@@ -59,7 +57,6 @@ trait RefreshDatabase
                 $connection->unsetEventDispatcher();
                 $connection->rollback();
                 $connection->setEventDispatcher($dispatcher);
-                $connection->disconnect();
             }
         });
     }
