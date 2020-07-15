@@ -70,6 +70,7 @@ abstract class TestCase extends BaseTestCase
                 call_user_func($callback);
             }
 
+            $this->refreshContainer();
             $this->container = null;
         }
 
