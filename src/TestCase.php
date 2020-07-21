@@ -41,11 +41,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected $setUpHasRun = false;
 
-    /**
-     * @var Container
-     */
-    private $__container;
-
     protected function setUp()
     {
         if (! $this->container) {
@@ -129,12 +124,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshContainer()
     {
-        // TODO: 浅度克隆无法保证每次都是一个新的容器, 需要修改
-        $this->container = ApplicationContext::setContainer(clone $this->__container);
-    }
-
-    protected function createContainer()
-    {
-        return $this->__container = ApplicationContext::getContainer();
+        $this->container = ApplicationContext::setContainer(ContainerState::get());
     }
 }

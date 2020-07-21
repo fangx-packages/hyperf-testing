@@ -34,14 +34,6 @@ php bin/hyperf.php fx:test UserTest --unit
 <?php
 declare(strict_types=1);
 
-/**
- * HotniuerGrpc
- *
- * @link     https://glab.tagtic.cn/niufangxu/hotniuer-grpc
- * @document https://glab.tagtic.cn/niufangxu/hotniuer-grpc/blob/master/README.md
- * @contact  ggjs@infinities.com.cn
- */
-
 namespace HyperfTest\Units;
 
 use Fangx\Testing\Concerns\CommandCaller;
@@ -56,7 +48,6 @@ use Fangx\Testing\Concerns\RefreshDatabase;
 class UserTest extends TestCase
 {
     use CommandCaller;
-    use RefreshDatabase;
     use DatabaseMigrations;
     
     public function testExample()
