@@ -15,7 +15,6 @@ namespace Fangx\Testing;
 
 use Carbon\Carbon;
 use Hyperf\Di\Container;
-use Hyperf\Di\Definition\DefinitionSourceFactory;
 use Hyperf\Utils\ApplicationContext;
 use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -41,6 +40,11 @@ abstract class TestCase extends BaseTestCase
      * @var bool
      */
     protected $setUpHasRun = false;
+
+    /**
+     * @var Container
+     */
+    private $__container;
 
     protected function setUp()
     {
@@ -121,17 +125,16 @@ abstract class TestCase extends BaseTestCase
     protected function clearContainer()
     {
         $this->container = null;
-        ApplicationContext::setContainer(\Fangx\Testing\Container::mock());
     }
 
     protected function refreshContainer()
     {
-        $this->container = $this->createContainer();
+        // TODO: 浅度克隆无法保证每次都是一个新的容器, 需要修改
+        $this->container = ApplicationContext::setContainer(clone $this->__container);
     }
 
     protected function createContainer()
     {
-        $this->clearContainer();
-        return ApplicationContext::setContainer(new Container((new DefinitionSourceFactory(false))()));
+        return $this->__container = ApplicationContext::getContainer();
     }
 }
