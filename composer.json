@@ -1,5 +1,5 @@
 {
-  "name": "fangx/hyperf-database-testing",
+  "name": "fangx/testing",
   "description": "hyperf database testing support",
   "type": "library",
   "keywords": [
