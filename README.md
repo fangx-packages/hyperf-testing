@@ -4,6 +4,11 @@
 
 **推荐使用 [`fangx/sqlite-driver`](https://github.com/nfangxu/hyperf-sqlite-driver) 作为数据库驱动进行测试.**
 
+> 为了保证测试独立, 所以每个测试完成后都会重新刷新容器.
+> 该情况下会导致使用异步协程情况的时候, 使用 `ApplicationContext::getContainer()` 每次获取到的容器可以不一样
+> 在异步里面应该避免直接使用 `ApplicationContext::getContainer()` 获取容器的相关内容.
+> 官方推荐做法是 通过构造函数直接直接注入 `Container`, 而不是每次使用容器都通过 `ApplicationContext::getContainer()` 获取.
+
 # 安装
 
 ```bash
