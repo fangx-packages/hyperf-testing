@@ -120,10 +120,12 @@ abstract class TestCase extends BaseTestCase
     protected function clearContainer()
     {
         $this->container = null;
+        gc_collect_cycles();
     }
 
     protected function refreshContainer()
     {
         $this->container = ApplicationContext::setContainer(ContainerState::get());
+        gc_collect_cycles();
     }
 }
