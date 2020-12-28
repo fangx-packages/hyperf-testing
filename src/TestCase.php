@@ -43,7 +43,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $setUpHasRun = false;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (! $this->container) {
             $this->container = $this->createContainer();
@@ -59,7 +59,7 @@ abstract class TestCase extends BaseTestCase
         $this->setUpHasRun = true;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if ($this->container) {
             foreach ($this->beforeContainerDestroyedCallbacks as $callback) {
