@@ -1,4 +1,13 @@
-# hyperf-testing
+## hyperf-testing
+
+Hyperf 中单元测试增强扩展包
+
+- [x] 支持数据库测试.
+- [ ] 支持 Http Response 直接进行断言.
+- [ ] 支持 Event 断言, 而不是直接执行 Event.
+- [ ] 支持 Queue 断言, 而不是直接执行 Queue.
+- [ ] 支持 Http 伪造响应, 而不需要真正向第三方发送请求.
+- [ ] 支持 Blade 视图渲染测试.
 
 在 hyperf 中使用数据库进行单元测试. 
 
@@ -7,15 +16,17 @@
 > 为了保证测试独立, 所以每个测试完成后都会重新刷新容器.
 > 该情况下会导致使用异步协程情况的时候, 使用 `ApplicationContext::getContainer()` 每次获取到的容器可能不一样
 > 在异步里面应该避免直接使用 `ApplicationContext::getContainer()` 获取容器的相关内容.
-> 官方推荐做法是 通过构造函数直接直接注入 `Container`, 而不是每次使用容器都通过 `ApplicationContext::getContainer()` 获取.
+> Hyperf 官方推荐做法是通过构造函数直接直接注入 `Container`, 而不是每次使用容器都通过 `ApplicationContext::getContainer()` 获取.
 
-# 安装
+## 安装
 
 ```bash
 composer require fangx/testing --dev
 ```
 
-# 使用
+## 使用
+
+Hyperf 2.0 使用 `2.1` 版本, Hyperf 2.1 使用 `3.*` 版本
 
 > - `Fangx\Testing\Concerns\CommandCaller`: 提供 `command()` 方法, 在程序中执行命令.
 > - `Fangx\Testing\Concerns\DatabaseMigrations`: 参照 laravel. 需要依赖 `CommandCaller` 执行迁移命令.
@@ -37,28 +48,16 @@ php bin/hyperf.php fx:test UserTest --unit
 
 ```php
 <?php
-declare(strict_types=1);
+namespace HyperfTest\Cases;
 
-namespace HyperfTest\Units;
-
-use Fangx\Testing\Concerns\CommandCaller;
-use Fangx\Testing\TestCase;
-use Fangx\Testing\Concerns\DatabaseMigrations;
-use Fangx\Testing\Concerns\RefreshDatabase;
-
-/**
- * @internal
- * @coversNothing
- */
-class UserTest extends TestCase
+class UserTest extends \Fangx\Testing\TestCase
 {
-    use CommandCaller;
-    use DatabaseMigrations;
-    
+    use \Fangx\Testing\Concerns\CommandCaller;
+    use \Fangx\Testing\Concerns\RefreshDatabase;
+
     public function testExample()
     {
         $this->assertTrue(true);
     }
-
 }
 ```
