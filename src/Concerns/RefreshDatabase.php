@@ -63,7 +63,7 @@ trait RefreshDatabase
 
     protected function usingInMemoryDatabase()
     {
-        return strpos(getenv('DB_DATABASE'),':memory:') !== false;
+        return strpos(getenv('DB_DATABASE'), ':memory:') !== false;
     }
 
     protected function refreshTestDatabase()
