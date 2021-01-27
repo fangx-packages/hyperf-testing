@@ -74,7 +74,7 @@ trait RefreshDatabase
             $path = 'migrations/testing';
         }
 
-        if (!RefreshDatabaseState::$migrated) {
+        if (! RefreshDatabaseState::$migrated) {
             $this->command('migrate:fresh', [
                 '--path' => $path,
             ]);
