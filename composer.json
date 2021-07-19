@@ -17,11 +17,11 @@
   "require": {
     "php": ">=7.2",
     "ext-swoole": ">=4.5",
-    "hyperf/contract": "2.1.*",
-    "hyperf/db-connection": "2.1.*",
-    "hyperf/devtool": "2.1.*",
-    "hyperf/di": "2.1.*",
-    "hyperf/utils": "2.1.*",
+    "hyperf/contract": "2.*",
+    "hyperf/db-connection": "2.*",
+    "hyperf/devtool": "2.*",
+    "hyperf/di": "2.*",
+    "hyperf/utils": "2.*",
     "phpunit/phpunit": "^9.0",
     "psr/container": "^1.0"
   },
